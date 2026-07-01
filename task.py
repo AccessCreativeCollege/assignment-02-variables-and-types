@@ -6,36 +6,37 @@
 # Task 1: Integers
 # Create a variable called `age` and set it to any whole number between 16 and 99
 # TODO:
+age = 87
 
 
 # Task 2: Floats
 # Create a variable called `temperature` and set it to any decimal number
 # TODO:
-
+temperature = 98.6
 
 # Task 3: Strings
 # Create a variable called `name` and set it to your first name as a string
 # TODO:
-
+name = "John"
 
 # Task 4: Booleans
 # Create a variable called `is_student` and set it to True
 # TODO:
-
+is_student = True
 
 # Task 5: Arithmetic
 # Create a variable called `result` and set it to the value of:
 # (age multiplied by 2) plus 10
 # Use your `age` variable in the calculation, do not just type a number
 # TODO:
-
+result = (age * 2) + 10
 
 # Task 6: String concatenation
 # Create a variable called `greeting` that combines the string "Hello, "
 # with your `name` variable so that it reads: Hello, <yourname>
 # For example if name is "Ali" then greeting should be "Hello, Ali"
 # TODO:
-
+greeting = "Hello, " + name
 
 # --- Do not edit below this line ---
 if __name__ == "__main__":
