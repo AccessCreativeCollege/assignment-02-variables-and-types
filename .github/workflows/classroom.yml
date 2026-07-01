@@ -1,0 +1,90 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: File imports without errors
+      id: file-imports-without-errors
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: File imports without errors
+        setup-command: pip install pytest --quiet
+        command: pytest tests/test_task.py::test_file_imports_without_errors -v
+        timeout: 10
+        max-score: 0
+    - name: 'Task 1: age is an integer'
+      id: task-1-age-is-an-integer
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Task 1: age is an integer'
+        setup-command: ''
+        command: pytest tests/test_task.py::test_task1_age_exists_and_is_int -v
+        timeout: 10
+        max-score: 15
+    - name: 'Task 2: temperature is a float'
+      id: task-2-temperature-is-a-float
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Task 2: temperature is a float'
+        setup-command: ''
+        command: pytest tests/test_task.py::test_task2_temperature_exists_and_is_float -v
+        timeout: 10
+        max-score: 15
+    - name: 'Task 3: name is a string'
+      id: task-3-name-is-a-string
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Task 3: name is a string'
+        setup-command: ''
+        command: pytest tests/test_task.py::test_task3_name_exists_and_is_string -v
+        timeout: 10
+        max-score: 15
+    - name: 'Task 4: is_student is True'
+      id: task-4-is-student-is-true
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Task 4: is_student is True'
+        setup-command: ''
+        command: pytest tests/test_task.py::test_task4_is_student_is_true -v
+        timeout: 10
+        max-score: 15
+    - name: 'Task 5: result calculation'
+      id: task-5-result-calculation
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Task 5: result calculation'
+        setup-command: ''
+        command: pytest tests/test_task.py::test_task5_result_is_correct -v
+        timeout: 10
+        max-score: 20
+    - name: 'Task 6: greeting concatenation'
+      id: task-6-greeting-concatenation
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Task 6: greeting concatenation'
+        setup-command: ''
+        command: pytest tests/test_task.py::test_task6_greeting_is_correct -v
+        timeout: 10
+        max-score: 20
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        FILE-IMPORTS-WITHOUT-ERRORS_RESULTS: "${{steps.file-imports-without-errors.outputs.result}}"
+        TASK-1-AGE-IS-AN-INTEGER_RESULTS: "${{steps.task-1-age-is-an-integer.outputs.result}}"
+        TASK-2-TEMPERATURE-IS-A-FLOAT_RESULTS: "${{steps.task-2-temperature-is-a-float.outputs.result}}"
+        TASK-3-NAME-IS-A-STRING_RESULTS: "${{steps.task-3-name-is-a-string.outputs.result}}"
+        TASK-4-IS-STUDENT-IS-TRUE_RESULTS: "${{steps.task-4-is-student-is-true.outputs.result}}"
+        TASK-5-RESULT-CALCULATION_RESULTS: "${{steps.task-5-result-calculation.outputs.result}}"
+        TASK-6-GREETING-CONCATENATION_RESULTS: "${{steps.task-6-greeting-concatenation.outputs.result}}"
+      with:
+        runners: file-imports-without-errors,task-1-age-is-an-integer,task-2-temperature-is-a-float,task-3-name-is-a-string,task-4-is-student-is-true,task-5-result-calculation,task-6-greeting-concatenation
